@@ -1,0 +1,12 @@
+# .dockerignore
+.git
+.github
+node_modules
+**/node_modules
+**/.vite
+**/dist
+**/public/assets/locale
+.verification
+.env
+.env.*
+.DS_Store

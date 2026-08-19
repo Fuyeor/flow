@@ -1,0 +1,16 @@
+{
+  "name": "@fuyeor/flow",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "locale": "locale-cli"
+  },
+  "devDependencies": {
+    "@fuyeor/locale-cli": "^0.1.1",
+    "vitest": "^3.2.4"
+  },
+  "packageManager": "pnpm@10.4.1"
+}
