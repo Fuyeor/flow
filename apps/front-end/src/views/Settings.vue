@@ -1,4 +1,4 @@
-<!-- apps/front-end/src/views/Settings.vue -->
+<!-- @/views/Settings.vue -->
 <template>
   <div class="flow-page">
     <header class="flow-page-header">
@@ -7,34 +7,85 @@
         <h1>{{ t('settings.title') }}</h1>
         <p class="flow-page-subtitle">{{ t('settings.subtitle') }}</p>
       </div>
-      <router-link class="flow-text-link" to="/">← {{ t('nav.home') }}</router-link>
+      <router-link class="flow-text-link" to="/"
+        >← {{ t('nav.home') }}</router-link
+      >
     </header>
 
     <section class="flow-section-card settings-card">
-      <div class="flow-section-heading"><div><p class="flow-eyebrow">{{ t('settings.language') }}</p><h2>{{ t('settings.language') }}</h2></div></div>
+      <div class="flow-section-heading">
+        <div>
+          <p class="flow-eyebrow">{{ t('settings.language') }}</p>
+          <h2>{{ t('settings.language') }}</h2>
+        </div>
+      </div>
       <label class="flow-setting-row">
         <span>{{ t('settings.language') }}</span>
         <select :value="locale" @change="changeLocale">
-          <option v-for="option in localeOptions" :key="option.value" :value="option.value">{{ option.label }}</option>
+          <option
+            v-for="option in localeOptions"
+            :key="option.value"
+            :value="option.value"
+          >
+            {{ option.label }}
+          </option>
         </select>
       </label>
     </section>
 
     <section class="flow-section-card settings-card">
-      <div class="flow-section-heading"><div><p class="flow-eyebrow">{{ t('settings.notifications') }}</p><h2>{{ t('settings.notifications') }}</h2></div><span class="status-pill" :class="notificationState">{{ notificationLabel }}</span></div>
+      <div class="flow-section-heading">
+        <div>
+          <p class="flow-eyebrow">{{ t('settings.notifications') }}</p>
+          <h2>{{ t('settings.notifications') }}</h2>
+        </div>
+        <span class="status-pill" :class="notificationState">{{
+          notificationLabel
+        }}</span>
+      </div>
       <p class="flow-muted">{{ notificationDescription }}</p>
-      <button v-if="notificationState !== 'granted' && notificationState !== 'unsupported'" class="flow-button primary" type="button" @click="enableNotifications">{{ t('settings.enableNotifications') }}</button>
+      <button
+        v-if="
+          notificationState !== 'granted' && notificationState !== 'unsupported'
+        "
+        class="flow-button primary"
+        type="button"
+        @click="enableNotifications"
+      >
+        {{ t('settings.enableNotifications') }}
+      </button>
     </section>
 
     <section class="flow-section-card settings-card">
-      <div class="flow-section-heading"><div><p class="flow-eyebrow">{{ t('settings.backup') }}</p><h2>{{ t('settings.backup') }}</h2></div></div>
+      <div class="flow-section-heading">
+        <div>
+          <p class="flow-eyebrow">{{ t('settings.backup') }}</p>
+          <h2>{{ t('settings.backup') }}</h2>
+        </div>
+      </div>
       <p class="flow-muted">{{ t('settings.backupHint') }}</p>
       <div class="settings-actions">
-        <button class="flow-button primary" type="button" @click="exportData">{{ t('settings.export') }}</button>
-        <button class="flow-button secondary" type="button" @click="fileInput?.click()">{{ t('settings.import') }}</button>
-        <input ref="fileInput" class="visually-hidden" type="file" accept="application/json,.json" @change="importData" />
+        <button class="flow-button primary" type="button" @click="exportData">
+          {{ t('settings.export') }}
+        </button>
+        <button
+          class="flow-button secondary"
+          type="button"
+          @click="fileInput?.click()"
+        >
+          {{ t('settings.import') }}
+        </button>
+        <input
+          ref="fileInput"
+          class="visually-hidden"
+          type="file"
+          accept="application/json,.json"
+          @change="importData"
+        />
       </div>
-      <p v-if="state.lastBackupAt" class="settings-last-backup">{{ t('settings.saved') }} · {{ formatBackupDate(state.lastBackupAt) }}</p>
+      <p v-if="state.lastBackupAt" class="settings-last-backup">
+        {{ t('settings.saved') }} · {{ formatBackupDate(state.lastBackupAt) }}
+      </p>
     </section>
 
     <section class="flow-notice-card">
@@ -55,7 +106,13 @@ import { formatShortDate } from '@/utils/time';
 
 const { t, locale } = useLocale();
 const localeStore = useLocaleStore();
-const { state, updateSettings, requestNotifications, exportBackup, importBackup } = useN24();
+const {
+  state,
+  updateSettings,
+  requestNotifications,
+  exportBackup,
+  importBackup,
+} = useN24();
 const fileInput = ref<HTMLInputElement>();
 const toast = ref('');
 
@@ -73,9 +130,23 @@ const localeOptions = [
   { value: 'ru', label: 'Русский' },
 ];
 
-const notificationState = computed(() => state.value.settings.notificationPermission);
-const notificationLabel = computed(() => notificationState.value === 'granted' ? 'ON' : notificationState.value === 'unsupported' ? 'N/A' : 'OFF');
-const notificationDescription = computed(() => notificationState.value === 'granted' ? t('settings.notificationsGranted') : notificationState.value === 'unsupported' ? t('settings.notificationsUnsupported') : t('settings.enableNotifications'));
+const notificationState = computed(
+  () => state.value.settings.notificationPermission,
+);
+const notificationLabel = computed(() =>
+  notificationState.value === 'granted'
+    ? 'ON'
+    : notificationState.value === 'unsupported'
+      ? 'N/A'
+      : 'OFF',
+);
+const notificationDescription = computed(() =>
+  notificationState.value === 'granted'
+    ? t('settings.notificationsGranted')
+    : notificationState.value === 'unsupported'
+      ? t('settings.notificationsUnsupported')
+      : t('settings.enableNotifications'),
+);
 
 const changeLocale = async (event: Event) => {
   const nextLocale = (event.target as HTMLSelectElement).value;
@@ -90,7 +161,9 @@ const enableNotifications = async () => {
 
 const showToast = (message: string) => {
   toast.value = message;
-  window.setTimeout(() => { toast.value = ''; }, 3_000);
+  window.setTimeout(() => {
+    toast.value = '';
+  }, 3_000);
 };
 
 const exportData = () => {
@@ -112,5 +185,6 @@ const importData = async (event: Event) => {
   }
 };
 
-const formatBackupDate = (iso: string) => formatShortDate(new Date(iso), locale.value);
+const formatBackupDate = (iso: string) =>
+  formatShortDate(new Date(iso), locale.value);
 </script>

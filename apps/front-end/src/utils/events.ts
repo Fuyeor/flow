@@ -1,4 +1,4 @@
-// apps/front-end/src/utils/events.ts
+// @/utils/events.ts
 
 import type { EventDefinition, EventOccurrence, EventRepeat, WakeSession } from '@/types';
 import { addMinutes, minutesBetween } from '@/utils/time';
@@ -44,7 +44,7 @@ export const createCalendarOccurrences = (
   for (const event of events) {
     if (!event.enabled || event.schedule !== 'calendar') continue;
     if (event.repeat === 'once' && event.firstDueAt) {
-        const dueTime = Date.parse(addMinutes(event.firstDueAt, -event.reminderMinutes));
+      const dueTime = Date.parse(addMinutes(event.firstDueAt, -event.reminderMinutes));
       if (dueTime >= from.getTime() && dueTime <= to.getTime()) {
         occurrences.push({
           id: occurrenceId(event.id, event.firstDueAt),

@@ -2,28 +2,29 @@
 name: Validate and Publish Frontend
 
 on:
+  workflow_dispatch: # manually triggerable workflow
+
   pull_request:
     paths:
+      - '.github/workflows/deploy.yml'
       - 'apps/front-end/**'
-      - 'package.json'
-      - 'pnpm-lock.yaml'
-      - 'pnpm-workspace.yaml'
       - '.localerc.json'
       - '.npmrc'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
       - 'Dockerfile.front'
-      - '.github/workflows/deploy.yml'
+
   push:
     branches:
       - main
     paths:
+      - '.github/workflows/deploy.yml'
       - 'apps/front-end/**'
-      - 'package.json'
-      - 'pnpm-lock.yaml'
-      - 'pnpm-workspace.yaml'
       - '.localerc.json'
       - '.npmrc'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
       - 'Dockerfile.front'
-      - '.github/workflows/deploy.yml'
 
 env:
   REGISTRY: ghcr.io

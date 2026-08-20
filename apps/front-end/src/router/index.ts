@@ -1,4 +1,4 @@
-// apps/front-end/src/router/index.ts
+// @/router/index.ts
 
 import { createRouter, RouterView, type RouteRecord } from '@fuyeor/vue-router';
 

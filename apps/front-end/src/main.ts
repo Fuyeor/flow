@@ -1,4 +1,4 @@
-// apps/front-end/src/main.ts
+// @/main.ts
 
 import App from './App.vue';
 import router from './router';

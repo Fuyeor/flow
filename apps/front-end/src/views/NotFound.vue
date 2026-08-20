@@ -1,9 +1,11 @@
-<!-- apps/front-end/src/views/NotFound.vue -->
+<!-- @/views/NotFound.vue -->
 <template>
   <div class="flow-page flow-not-found">
     <p class="flow-eyebrow">404</p>
     <h1>{{ t('notFound.title') }}</h1>
-    <router-link class="flow-button primary" to="/">{{ t('nav.home') }}</router-link>
+    <router-link class="flow-button primary" to="/">{{
+      t('nav.home')
+    }}</router-link>
   </div>
 </template>
 

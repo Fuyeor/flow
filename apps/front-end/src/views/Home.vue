@@ -1,4 +1,4 @@
-<!-- apps/front-end/src/views/Home.vue -->
+<!-- @/views/Home.vue -->
 <template>
   <div class="flow-page">
     <header class="flow-page-header">
@@ -6,24 +6,45 @@
         <p class="flow-eyebrow">{{ t('home.eyebrow') }}</p>
         <h1>{{ t('site.title') }}</h1>
       </div>
-      <router-link class="flow-text-link" to="/data">{{ t('nav.data') }} →</router-link>
+      <router-link class="flow-text-link" to="/data"
+        >{{ t('nav.data') }} →</router-link
+      >
     </header>
 
     <section class="flow-time-card" :class="{ 'is-sleeping': !activeSession }">
       <div class="flow-time-card-topline">
         <span>{{ t('home.personalTime') }}</span>
-        <span v-if="activeSession" class="flow-live-dot"><i></i>{{ t('home.awakeFor') }} {{ formatDuration(elapsedMinutes) }}</span>
+        <span v-if="activeSession" class="flow-live-dot"
+          ><i></i>{{ t('home.awakeFor') }}
+          {{ formatDuration(elapsedMinutes) }}</span
+        >
       </div>
-      <p class="personal-clock" aria-live="polite">{{ personalTime ?? '—:——' }}</p>
+      <p class="personal-clock" aria-live="polite">
+        {{ personalTime ?? '—:——' }}
+      </p>
       <p class="local-clock">{{ t('home.localTime') }} · {{ localTime }}</p>
       <p class="flow-time-copy">
-        {{ activeSession ? `${t('home.awakeFor')} ${formatDuration(elapsedMinutes)}` : t('home.wakePrompt') }}
+        {{
+          activeSession
+            ? `${t('home.awakeFor')} ${formatDuration(elapsedMinutes)}`
+            : t('home.wakePrompt')
+        }}
       </p>
       <div class="flow-time-actions">
-        <button v-if="!activeSession" class="flow-button primary large" type="button" @click="wake">
+        <button
+          v-if="!activeSession"
+          class="flow-button primary large"
+          type="button"
+          @click="wake"
+        >
           <span aria-hidden="true">◒</span>{{ t('home.woke') }}
         </button>
-        <button v-else class="flow-button secondary large" type="button" @click="sleep">
+        <button
+          v-else
+          class="flow-button secondary large"
+          type="button"
+          @click="sleep"
+        >
           <span aria-hidden="true">◐</span>{{ t('home.sleep') }}
         </button>
       </div>
@@ -50,13 +71,30 @@
           <p class="flow-eyebrow">{{ t('home.events') }}</p>
           <h2>{{ t('home.events') }}</h2>
         </div>
-        <button class="flow-button small primary" type="button" @click="openCreate">+ {{ t('home.addEvent') }}</button>
+        <button
+          class="flow-button small primary"
+          type="button"
+          @click="openCreate"
+        >
+          + {{ t('home.addEvent') }}
+        </button>
       </div>
 
       <div v-if="eventCards.length" class="capsule-list">
-        <article v-for="card in eventCards" :key="card.occurrence.id" class="event-capsule" :class="{ overdue: card.isDue }">
-          <button class="capsule-main" type="button" @click="complete(card.occurrence.id)">
-            <span class="capsule-check" aria-hidden="true">{{ card.occurrence.status === 'completed' ? '✓' : '' }}</span>
+        <article
+          v-for="card in eventCards"
+          :key="card.occurrence.id"
+          class="event-capsule"
+          :class="{ overdue: card.isDue }"
+        >
+          <button
+            class="capsule-main"
+            type="button"
+            @click="complete(card.occurrence.id)"
+          >
+            <span class="capsule-check" aria-hidden="true">{{
+              card.occurrence.status === 'completed' ? '✓' : ''
+            }}</span>
             <span class="capsule-copy">
               <strong>{{ card.event.title }}</strong>
               <small>{{ card.event.tag || card.whenLabel }}</small>
@@ -64,16 +102,24 @@
             <time>{{ card.whenLabel }}</time>
           </button>
           <div class="capsule-actions">
-            <button type="button" @click="snooze(card.occurrence.id)">{{ t('event.snooze') }}</button>
-            <button type="button" @click="skip(card.occurrence.id)">{{ t('event.skip') }}</button>
-            <button type="button" @click="openEdit(card.event)">{{ t('data.edit') }}</button>
+            <button type="button" @click="snooze(card.occurrence.id)">
+              {{ t('event.snooze') }}
+            </button>
+            <button type="button" @click="skip(card.occurrence.id)">
+              {{ t('event.skip') }}
+            </button>
+            <button type="button" @click="openEdit(card.event)">
+              {{ t('data.edit') }}
+            </button>
           </div>
         </article>
       </div>
       <div v-else class="flow-empty-state">
         <span class="flow-empty-mark" aria-hidden="true">+</span>
         <p>{{ t('home.emptyEvents') }}</p>
-        <button class="flow-text-link" type="button" @click="openCreate">{{ t('home.addEvent') }} →</button>
+        <button class="flow-text-link" type="button" @click="openCreate">
+          {{ t('home.addEvent') }} →
+        </button>
       </div>
     </section>
 
@@ -82,10 +128,17 @@
         <strong>{{ t('settings.backup') }}</strong>
         <p>{{ t('settings.backupHint') }}</p>
       </div>
-      <router-link class="flow-button secondary small" to="/settings">{{ t('settings.export') }}</router-link>
+      <router-link class="flow-button secondary small" to="/settings">{{
+        t('settings.export')
+      }}</router-link>
     </section>
 
-    <EventForm v-if="formOpen" :initial="editingEvent" @cancel="closeForm" @save="saveEvent" />
+    <EventForm
+      v-if="formOpen"
+      :initial="editingEvent"
+      @cancel="closeForm"
+      @save="saveEvent"
+    />
 
     <div v-if="toast" class="flow-toast" role="status">
       <span>{{ toast.message }}</span>
@@ -127,45 +180,84 @@ const formOpen = ref(false);
 const editingEvent = ref<EventDefinition>();
 const toast = ref<{ message: string; occurrenceId: string; timeout: number }>();
 
-const averageCycle = computed(() => getAverageCycleMinutes(state.value.sessions));
+const averageCycle = computed(() =>
+  getAverageCycleMinutes(state.value.sessions),
+);
 const localTime = computed(() => formatClock(now.value, locale.value));
-const elapsedMinutes = computed(() => activeSession.value ? getElapsedMinutes(activeSession.value.wokeAt, now.value) : 0);
+const elapsedMinutes = computed(() =>
+  activeSession.value
+    ? getElapsedMinutes(activeSession.value.wokeAt, now.value)
+    : 0,
+);
 const personalTime = computed(() => {
   if (!activeSession.value || !averageCycle.value) return undefined;
-  const minutes = getPersonalMinutes(activeSession.value.wokeAt, now.value, averageCycle.value);
-  return minutes === undefined ? undefined : formatPersonalTime(minutes, locale.value);
+  const minutes = getPersonalMinutes(
+    activeSession.value.wokeAt,
+    now.value,
+    averageCycle.value,
+  );
+  return minutes === undefined
+    ? undefined
+    : formatPersonalTime(minutes, locale.value);
 });
 
 const wakeSleepRatio = computed(() => {
-  const orderedSessions = [...state.value.sessions].sort((first, second) => Date.parse(first.wokeAt) - Date.parse(second.wokeAt));
+  const orderedSessions = [...state.value.sessions].sort(
+    (first, second) => Date.parse(first.wokeAt) - Date.parse(second.wokeAt),
+  );
   const completed = orderedSessions
-    .map((session, index) => getSleepMinutes(session, orderedSessions[index + 1]))
-    .filter((minutes): minutes is number => minutes !== undefined && minutes > 0);
+    .map((session, index) =>
+      getSleepMinutes(session, orderedSessions[index + 1]),
+    )
+    .filter(
+      (minutes): minutes is number => minutes !== undefined && minutes > 0,
+    );
   if (!completed.length) return undefined;
-  const averageSleep = completed.reduce((sum, value) => sum + value, 0) / completed.length;
-  const averageWake = averageCycle.value ? averageCycle.value - averageSleep : undefined;
+  const averageSleep =
+    completed.reduce((sum, value) => sum + value, 0) / completed.length;
+  const averageWake = averageCycle.value
+    ? averageCycle.value - averageSleep
+    : undefined;
   if (!averageWake || averageWake <= 0) return undefined;
   return `${(averageWake / averageSleep).toFixed(1)} : 1`;
 });
 
-const pendingOccurrences = computed(() => state.value.occurrences
-  .filter((occurrence) => occurrence.status === 'pending')
-  .sort((first, second) => Date.parse(first.snoozedUntil ?? first.dueAt) - Date.parse(second.snoozedUntil ?? second.dueAt)));
+const pendingOccurrences = computed(() =>
+  state.value.occurrences
+    .filter((occurrence) => occurrence.status === 'pending')
+    .sort(
+      (first, second) =>
+        Date.parse(first.snoozedUntil ?? first.dueAt) -
+        Date.parse(second.snoozedUntil ?? second.dueAt),
+    ),
+);
 
-const eventCards = computed(() => pendingOccurrences.value.slice(0, 8).flatMap((occurrence) => {
-  const event = state.value.events.find((item) => item.id === occurrence.eventId);
-  if (!event) return [];
-  const dueAt = new Date(occurrence.snoozedUntil ?? occurrence.dueAt);
-  const isDue = dueAt.getTime() <= now.value.getTime();
-  const whenLabel = event.schedule === 'wakeAfter'
-    ? `${t('event.afterWake')} · ${formatDuration(event.offsetMinutes ?? 0)}`
-    : formatClock(dueAt, locale.value);
-  return [{ occurrence, event, isDue, whenLabel }];
-}));
+const eventCards = computed(() =>
+  pendingOccurrences.value.slice(0, 8).flatMap((occurrence) => {
+    const event = state.value.events.find(
+      (item) => item.id === occurrence.eventId,
+    );
+    if (!event) return [];
+    const dueAt = new Date(occurrence.snoozedUntil ?? occurrence.dueAt);
+    const isDue = dueAt.getTime() <= now.value.getTime();
+    const whenLabel =
+      event.schedule === 'wakeAfter'
+        ? `${t('event.afterWake')} · ${formatDuration(event.offsetMinutes ?? 0)}`
+        : formatClock(dueAt, locale.value);
+    return [{ occurrence, event, isDue, whenLabel }];
+  }),
+);
 
 const backupDue = computed(() => {
-  const first = state.value.sessions.map((session) => Date.parse(session.wokeAt)).filter(Number.isFinite).sort((a, b) => a - b)[0];
-  return first !== undefined && now.value.getTime() - first > 21 * 24 * 60 * 60 * 1_000 && (!state.value.lastBackupAt || Date.parse(state.value.lastBackupAt) < first);
+  const first = state.value.sessions
+    .map((session) => Date.parse(session.wokeAt))
+    .filter(Number.isFinite)
+    .sort((a, b) => a - b)[0];
+  return (
+    first !== undefined &&
+    now.value.getTime() - first > 21 * 24 * 60 * 60 * 1_000 &&
+    (!state.value.lastBackupAt || Date.parse(state.value.lastBackupAt) < first)
+  );
 });
 
 const wake = () => recordWake();
@@ -186,7 +278,9 @@ const closeForm = () => {
   editingEvent.value = undefined;
 };
 
-const saveEvent = (value: Omit<EventDefinition, 'id' | 'createdAt' | 'updatedAt'>) => {
+const saveEvent = (
+  value: Omit<EventDefinition, 'id' | 'createdAt' | 'updatedAt'>,
+) => {
   if (editingEvent.value) updateEvent(editingEvent.value.id, value);
   else createEvent(value);
   closeForm();
@@ -208,7 +302,8 @@ const undoToast = () => {
 };
 
 const snooze = (occurrenceId: string) => snoozeOccurrence(occurrenceId, 15);
-const skip = (occurrenceId: string) => setOccurrenceStatus(occurrenceId, 'skipped');
+const skip = (occurrenceId: string) =>
+  setOccurrenceStatus(occurrenceId, 'skipped');
 
 onBeforeUnmount(() => {
   if (toast.value) window.clearTimeout(toast.value.timeout);

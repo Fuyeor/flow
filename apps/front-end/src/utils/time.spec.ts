@@ -1,4 +1,4 @@
-// apps/front-end/src/utils/time.spec.ts
+// @/utils/time.spec.ts
 
 import { describe, expect, it } from 'vitest';
 import type { WakeSession } from '@/types';

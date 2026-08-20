@@ -1,4 +1,4 @@
-// apps/front-end/src/utils/time.ts
+// @/utils/time.ts
 
 import type { WakeSession } from '@/types';
 

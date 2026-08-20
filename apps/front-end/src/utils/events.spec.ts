@@ -1,4 +1,4 @@
-// apps/front-end/src/utils/events.spec.ts
+// @/utils/events.spec.ts
 
 import { describe, expect, it } from 'vitest';
 import type { EventDefinition, WakeSession } from '@/types';

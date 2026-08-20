@@ -1,4 +1,4 @@
-// apps/front-end/src/utils/storage.ts
+// @/utils/storage.ts
 
 import type {
   AppSettings,

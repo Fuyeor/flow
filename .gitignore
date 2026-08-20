@@ -1,11 +1,3 @@
-# ========================
-# Exclusive to reference.fuyeor.com
-# ========================
-
-content/**/index.json
-content/**/structure.*.json
-# temporary symbolic link prepared for locale-cli
-apps/reference
 
 # ========================
 # Environment variables

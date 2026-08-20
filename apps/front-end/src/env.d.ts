@@ -1,4 +1,4 @@
-// apps/front-end/src/env.d.ts
+// @/env.d.ts
 declare module '*.vue' {
   import type { DefineComponent } from 'vue';
   const component: DefineComponent<Record<string, never>, Record<string, never>, unknown>;

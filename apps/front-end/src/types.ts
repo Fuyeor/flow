@@ -1,4 +1,4 @@
-// apps/front-end/src/types.ts
+// @/types.ts
 
 export type EventSchedule = 'wakeAfter' | 'calendar';
 export type EventRepeat = 'once' | 'daily' | 'everyDays' | 'everyCycles';

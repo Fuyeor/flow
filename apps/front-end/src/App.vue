@@ -1,4 +1,4 @@
-<!-- apps/front-end/src/App.vue -->
+<!-- @/App.vue -->
 <template>
   <LeftSidebar />
   <main class="flow-main">

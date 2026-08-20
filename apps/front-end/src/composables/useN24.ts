@@ -1,4 +1,4 @@
-// apps/front-end/src/composables/useN24.ts
+// @/composables/useN24.ts
 
 import { computed, ref, watch } from 'vue';
 import type {

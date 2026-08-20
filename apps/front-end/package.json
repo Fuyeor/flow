@@ -1,6 +1,8 @@
 {
   "name": "@fuyeor/flow-front-end",
   "private": true,
+  "license": "MIT",
+  "author": "Fuyeor <https://www.fuyeor.com/@Fuyeor>",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -19,11 +21,11 @@
   },
   "devDependencies": {
     "@fuyeor/tsconfig": "0.1.0",
-    "@types/node": "^24.12.4",
+    "@types/node": "^26.2.0",
     "@vitejs/plugin-vue": "^6.0.7",
     "html-minifier-terser": "^7.2.0",
     "lightningcss": "^1.32.0",
-    "typescript": "^6.0.3",
+    "typescript": "^7.0.2",
     "vite": "8.0.1"
   }
 }

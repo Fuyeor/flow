@@ -1,4 +1,4 @@
-<!-- apps/front-end/src/layout/Left.vue -->
+<!-- @/layout/Left.vue -->
 <template>
   <LeftSidebar>
     <template #nav>
